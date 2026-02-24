@@ -6,8 +6,8 @@ import heroGirl from '../assets/hero-girl.png'
 
 export const HeroSection = () => {
     return (
-        <section className="relative overflow-hidden bg-[#4c1d95] h-[506px] flex items-center justify-center pt-[76px]">
-            <div className="container relative z-10 mx-auto px-4 max-w-[1440px]">
+        <section className="relative overflow-hidden bg-[#4c1d95] md:h-[506px] min-h-[506px] h-auto flex items-center justify-center pt-[76px] pb-12 md:pb-0">
+            <div className="container relative z-10 mx-auto px-4 max-w-[1440px] py-12 md:py-0">
                 <div className="flex flex-col items-center text-center w-full max-w-[760px] mx-auto">
                     {/* Typography */}
                     <motion.div

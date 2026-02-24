@@ -47,9 +47,9 @@ export const CategoriesSection = () => {
                     </p>
                 </div>
 
-                <div className="max-w-7xl mx-auto mb-20">
+                <div className="max-w-7xl mx-auto mb-20 px-4">
                     <div
-                        className="flex flex-wrap items-center justify-center gap-4 px-2"
+                        className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-4 overflow-x-auto no-scrollbar pb-4 md:pb-0"
                     >
                         {categories.map((cat) => (
                             <motion.button
@@ -57,7 +57,7 @@ export const CategoriesSection = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setActiveTab(cat.id)}
-                                className={`px-8 py-4 rounded-2xl font-black text-lg transition-all duration-300 border-2 shrink-0 ${activeTab === cat.id
+                                className={`px-8 py-4 rounded-2xl font-black text-sm md:text-lg transition-all duration-300 border-2 shrink-0 ${activeTab === cat.id
                                     ? 'bg-[#ff9800] border-[#ff9800] text-white shadow-[0_10px_25px_rgba(255,152,0,0.3)]'
                                     : 'bg-white border-gray-100 text-gray-600 hover:border-gray-200'
                                     }`}

@@ -4,9 +4,9 @@ import { Star, ShoppingCart, BookOpen, User } from 'lucide-react'
 
 export const HorizontalCourseCard = ({ course }) => {
     return (
-        <Card className="flex flex-row overflow-hidden bg-white border border-gray-100 rounded-[1.5rem] shadow-sm hover:shadow-md transition-shadow w-[588px] h-[178px] shrink-0">
+        <Card className="flex flex-col sm:flex-row overflow-hidden bg-white border border-gray-100 rounded-[1.5rem] shadow-sm hover:shadow-md transition-shadow w-full max-w-[588px] min-h-[178px] shrink-0">
             {/* Left: Image with 'Selling Fast' tag */}
-            <div className="relative w-[220px] h-full shrink-0 bg-gray-100">
+            <div className="relative sm:w-[220px] w-full aspect-[16/9] sm:aspect-auto sm:h-auto shrink-0 bg-gray-100">
                 <img
                     src={course.image}
                     alt={course.title}
