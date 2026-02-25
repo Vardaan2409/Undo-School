@@ -83,7 +83,7 @@ export const AgeSelection = () => {
                                 }}
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
-                                className={`flex flex-col items-center justify-center min-w-[70px] md:min-w-[80px] h-[65px] md:h-[70px] border-2 rounded-xl bg-white flex-shrink-0 transition-transform duration-200 shadow-sm ${age.color}`}
+                                className={`flex flex-col items-center justify-center min-w-[70px] md:min-w-[80px] h-[65px] md:h-[70px] border-2 rounded-xl bg-white flex-shrink-0 transition-transform duration-200 shadow-sm cursor-pointer ${age.color}`}
                             >
                                 <span className="text-sm font-bold">{age.range}</span>
                                 <span className="text-[10px] font-bold uppercase">Years</span>

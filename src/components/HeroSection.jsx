@@ -82,7 +82,7 @@ export const HeroSection = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="absolute right-1.5 h-[calc(100%-12px)] px-8 rounded-full bg-linear-to-r from-purple-700 to-pink-500 text-white font-bold text-base hover:shadow-lg transition-all"
+                                className="absolute right-1.5 h-[calc(100%-12px)] px-8 rounded-full bg-linear-to-r from-purple-700 to-pink-500 text-white font-bold text-base hover:shadow-lg transition-all cursor-pointer"
                             >
                                 Search
                             </motion.button>

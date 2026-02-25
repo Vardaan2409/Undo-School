@@ -85,14 +85,14 @@ export const Navbar = () => {
                             <div className="flex flex-col space-y-4">
                                 <a
                                     href="#"
-                                    className="text-lg font-bold text-[#7c3aed]"
+                                    className="text-lg font-bold text-[#7c3aed] cursor-pointer"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     Course
                                 </a>
                                 <div className="h-px bg-gray-50" />
                                 <button
-                                    className="text-lg font-bold text-black text-left"
+                                    className="text-lg font-bold text-black text-left cursor-pointer"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     Login

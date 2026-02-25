@@ -81,7 +81,7 @@ export const TeachersSection = ({ hasGradient }) => {
                                 ease: [0.23, 1, 0.32, 1]
                             }}
                             whileHover={{ y: -10 }}
-                            className="group bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 pt-16 pb-8 px-4 flex flex-col items-center relative"
+                            className="group bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 pt-16 pb-8 px-4 flex flex-col items-center relative cursor-pointer"
                         >
                             {/* Avatar - sticking out */}
                             <div className="absolute -top-12 left-1/2 -translate-x-1/2">

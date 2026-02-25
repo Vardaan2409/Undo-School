@@ -12,7 +12,7 @@ export const CourseCard = ({ course }) => {
             transition={{ duration: 0.5 }}
             className="h-full"
         >
-            <Card className="group overflow-hidden flex flex-col h-full bg-white border-none shadow-[0_4px_25px_rgba(0,0,0,0.06)] rounded-[2.5rem] hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500">
+            <Card className="group overflow-hidden flex flex-col h-full bg-white border-none shadow-[0_4px_25px_rgba(0,0,0,0.06)] rounded-[2.5rem] hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 cursor-pointer">
                 {/* Top Rating Bar */}
                 <div className="flex items-center justify-end px-4 py-2 text-[10px] font-bold text-gray-500 bg-white/50">
                     <div className="flex items-center gap-1">
@@ -53,10 +53,10 @@ export const CourseCard = ({ course }) => {
                 <CardContent className="flex-1 p-6 pt-4 flex flex-col">
                     {/* Meta Pills */}
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                        <span className="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 italic transition-colors group-hover:bg-green-100">
+                        <span className="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 italic transition-colors group-hover:bg-green-100 cursor-pointer">
                             {course.category}
                         </span>
-                        <span className="px-3 py-1 bg-red-50 text-red-600 text-[10px] font-bold rounded-full border border-red-100 italic transition-colors group-hover:bg-red-100">
+                        <span className="px-3 py-1 bg-red-50 text-red-600 text-[10px] font-bold rounded-full border border-red-100 italic transition-colors group-hover:bg-red-100 cursor-pointer">
                             {course.level}
                         </span>
                     </div>
@@ -91,7 +91,7 @@ export const CourseCard = ({ course }) => {
                         <motion.button
                             whileHover={{ scale: 1.1, backgroundColor: '#f3e8ff' }}
                             whileTap={{ scale: 0.9 }}
-                            className="p-3 rounded-full border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-purple-200 transition-all text-gray-600 hover:text-purple-600"
+                            className="p-3 rounded-full border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-purple-200 transition-all text-gray-600 hover:text-purple-600 cursor-pointer"
                         >
                             <ShoppingCart className="w-4 h-4" />
                         </motion.button>
