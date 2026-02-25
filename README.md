@@ -1,3 +1,5 @@
+Deployed Link: https://undo-school-five.vercel.app/
+
 # UndoSchool - Course Browse Page
 
 A premium course browsing experience built with React, TailwindCSS, and Framer Motion.
