@@ -29,7 +29,11 @@ export const WebinarSection = ({ hasGradient }) => {
     }, [])
 
     return (
-        <section
+        <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="py-20 relative overflow-hidden"
             style={hasGradient ? { background: 'linear-gradient(113.73deg, rgba(242, 245, 255, 0.45) 1%, rgba(237, 230, 255, 0.45) 98.92%)' } : { backgroundColor: 'white' }}
         >
@@ -116,6 +120,6 @@ export const WebinarSection = ({ hasGradient }) => {
                     </AnimatePresence>
                 </div>
             </div>
-        </section>
+        </motion.section>
     )
 }

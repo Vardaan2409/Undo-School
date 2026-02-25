@@ -1,9 +1,16 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 export const Footer = () => {
     return (
-        <footer className="border-t border-border bg-white">
-            <div className="container mx-auto px-4 py-12 md:px-6 md:py-16">
+        <footer className="border-t border-border bg-white overflow-hidden">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="container mx-auto px-4 py-12 md:px-6 md:py-16"
+            >
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                     <div className="space-y-4">
                         <a href="/" className="text-2xl font-black tracking-tighter">
@@ -53,7 +60,7 @@ export const Footer = () => {
                         </a>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </footer>
     )
 }

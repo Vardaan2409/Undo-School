@@ -1,20 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from './Button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b border-border bg-white/80 backdrop-blur-md">
+        <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
+            ? 'bg-white/90 backdrop-blur-lg border-b border-gray-100 shadow-sm py-0'
+            : 'bg-transparent border-b border-transparent py-2'}`}
+        >
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex h-20 items-center justify-between">
                     <div className="flex items-center gap-14">
                         {/* Logo */}
-                        <a href="/" className="flex items-center">
-                            <span className="text-2xl font-black tracking-tighter shrink-0">
-                                <span className="text-[#0f172a]">Undo</span>
+                        <a href="/" className="flex items-center group">
+                            <span className="text-2xl font-black tracking-tighter shrink-0 transition-transform group-hover:scale-105">
+                                <span className={scrolled ? 'text-[#0f172a]' : 'text-white'}>Undo</span>
                                 <span className="text-[#0073e6]">school</span>
                             </span>
                         </a>
@@ -23,21 +35,26 @@ export const Navbar = () => {
                         <div className="hidden lg:flex items-center">
                             <a
                                 href="#"
-                                className="relative text-base font-bold text-[#7c3aed] transition-colors"
+                                className={`relative text-base font-bold transition-colors ${scrolled ? 'text-[#7c3aed]' : 'text-white/90 hover:text-white'}`}
                             >
                                 Course
-                                <div className="absolute -bottom-2.5 left-0 h-[3px] w-full bg-linear-to-r from-[#7c3aed] to-[#db2777] rounded-full" />
+                                <motion.div
+                                    layoutId="nav-underline"
+                                    className="absolute -bottom-2.5 left-0 h-[3px] w-full bg-linear-to-r from-[#7c3aed] to-[#db2777] rounded-full"
+                                />
                             </a>
                         </div>
                     </div>
 
                     {/* Desktop Right side actions */}
                     <div className="hidden lg:flex items-center space-x-10">
-                        <button className="text-base font-bold text-black hover:opacity-80 transition-opacity cursor-pointer">
+                        <button className={`text-base font-bold transition-colors cursor-pointer ${scrolled ? 'text-black hover:text-[#7c3aed]' : 'text-white hover:text-[#e9ff32]'}`}>
                             Login
                         </button>
                         <Button
-                            className="rounded-full bg-linear-to-r from-[#7c3aed] to-[#d946ef] text-white px-6 py-2.5 text-sm font-bold border-none hover:shadow-xl hover:opacity-95 transition-all shadow-md h-auto"
+                            className={`rounded-full px-6 py-2.5 text-sm font-bold border-none transition-all shadow-md h-auto ${scrolled
+                                ? 'bg-linear-to-r from-[#7c3aed] to-[#d946ef] text-white hover:shadow-xl hover:opacity-95'
+                                : 'bg-white text-[#7c3aed] hover:bg-[#e9ff32] hover:text-[#4c1d95] shadow-lg'}`}
                         >
                             Register for free
                         </Button>
@@ -47,7 +64,7 @@ export const Navbar = () => {
                     <div className="lg:hidden flex items-center">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            className={`p-2 rounded-lg transition-colors ${scrolled ? 'text-gray-600 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
                         >
                             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>

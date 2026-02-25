@@ -72,24 +72,32 @@ export const TeachersSection = ({ hasGradient }) => {
                     {teachers.map((teacher, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="bg-white rounded-[2rem] border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] pt-16 pb-8 px-4 flex flex-col items-center relative"
+                            transition={{
+                                delay: index * 0.1,
+                                duration: 0.6,
+                                ease: [0.23, 1, 0.32, 1]
+                            }}
+                            whileHover={{ y: -10 }}
+                            className="group bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 pt-16 pb-8 px-4 flex flex-col items-center relative"
                         >
                             {/* Avatar - sticking out */}
                             <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-                                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+                                <motion.div
+                                    whileHover={{ scale: 1.1, rotate: 5 }}
+                                    className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white"
+                                >
                                     <img
                                         src={teacher.image}
                                         alt={teacher.name}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover transition-transform group-hover:scale-110"
                                     />
-                                </div>
+                                </motion.div>
                             </div>
 
-                            <h3 className="font-black text-xl text-gray-900 mb-2">{teacher.name}</h3>
+                            <h3 className="font-black text-xl text-gray-900 mb-2 group-hover:text-purple-700 transition-colors">{teacher.name}</h3>
 
                             <div className="text-[13px] text-gray-500 font-medium mb-1 whitespace-nowrap">
                                 <span>{teacher.qualification}</span>
@@ -102,7 +110,7 @@ export const TeachersSection = ({ hasGradient }) => {
                             </p>
 
                             <div className="mt-auto w-full flex justify-center">
-                                <span className="px-4 py-2 bg-[#f1f3f5] text-gray-900 text-[12px] font-bold rounded-full whitespace-nowrap">
+                                <span className="px-5 py-2 bg-gray-50 text-gray-900 text-[12px] font-bold rounded-full whitespace-nowrap border border-gray-100 group-hover:bg-purple-50 group-hover:border-purple-100 group-hover:text-purple-700 transition-all">
                                     {teacher.subject}
                                 </span>
                             </div>

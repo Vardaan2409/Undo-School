@@ -47,7 +47,13 @@ export const AgeSelection = () => {
     }, [])
 
     return (
-        <section className="py-20 bg-white overflow-hidden">
+        <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="py-20 bg-white overflow-hidden"
+        >
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
@@ -64,13 +70,24 @@ export const AgeSelection = () => {
                         className="flex flex-nowrap justify-start lg:justify-center gap-3 pt-4 pb-6 overflow-x-auto no-scrollbar scroll-smooth px-4"
                     >
                         {ageGroups.map((age, index) => (
-                            <button
+                            <motion.button
                                 key={index}
-                                className={`flex flex-col items-center justify-center min-w-[70px] md:min-w-[80px] h-[65px] md:h-[70px] border-2 rounded-xl bg-white flex-shrink-0 hover:scale-105 transition-transform duration-200 shadow-sm ${age.color}`}
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{
+                                    delay: index * 0.05,
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 20
+                                }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className={`flex flex-col items-center justify-center min-w-[70px] md:min-w-[80px] h-[65px] md:h-[70px] border-2 rounded-xl bg-white flex-shrink-0 transition-transform duration-200 shadow-sm ${age.color}`}
                             >
                                 <span className="text-sm font-bold">{age.range}</span>
                                 <span className="text-[10px] font-bold uppercase">Years</span>
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
 
@@ -127,6 +144,6 @@ export const AgeSelection = () => {
                     </AnimatePresence>
                 </div>
             </div>
-        </section>
+        </motion.section>
     )
 }

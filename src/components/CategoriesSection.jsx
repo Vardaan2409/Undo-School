@@ -57,7 +57,13 @@ export const CategoriesSection = () => {
     }, [activeTab])
 
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <motion.section
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="py-24 bg-white overflow-hidden"
+        >
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
@@ -217,7 +223,7 @@ export const CategoriesSection = () => {
                     </AnimatePresence>
                 </div>
             </div>
-        </section>
+        </motion.section>
     )
 }
 

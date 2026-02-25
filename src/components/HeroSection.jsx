@@ -1,48 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Star, Users, GraduationCap } from 'lucide-react'
 import heroBoy from '../assets/hero-boy.png'
 import heroGirl from '../assets/hero-girl.png'
 
+const FloatingBlob = ({ color, size, initialPos, duration }) => (
+    <motion.div
+        className={`absolute rounded-full blur-[100px] opacity-30 ${color} ${size}`}
+        initial={initialPos}
+        animate={{
+            x: [0, 100, -50, 0],
+            y: [0, -100, 50, 0],
+            scale: [1, 1.2, 0.9, 1],
+        }}
+        transition={{
+            duration: duration,
+            repeat: Infinity,
+            ease: "linear"
+        }}
+    />
+)
+
 export const HeroSection = () => {
+    const [isFocused, setIsFocused] = useState(false)
+    const titleText = "Learn a New Skill"
+
     return (
         <section className="relative overflow-hidden bg-[#4c1d95] md:h-[506px] min-h-[506px] h-auto flex items-center justify-center pt-[76px] pb-12 md:pb-0">
+            {/* Background Animated Blobs */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <FloatingBlob color="bg-purple-400" size="w-96 h-96" initialPos={{ left: '10%', top: '20%' }} duration={20} />
+                <FloatingBlob color="bg-pink-400" size="w-80 h-80" initialPos={{ right: '15%', top: '10%' }} duration={25} />
+                <FloatingBlob color="bg-indigo-400" size="w-72 h-72" initialPos={{ right: '20%', bottom: '20%' }} duration={18} />
+            </div>
+
             <div className="container relative z-10 mx-auto px-4 max-w-[1440px] py-12 md:py-0">
                 <div className="flex flex-col items-center text-center w-full max-w-[760px] mx-auto">
                     {/* Typography */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="space-y-3"
-                    >
-                        <h1 className="text-3xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
-                            Learn a New Skill
+                    <div className="space-y-3">
+                        <h1 className="text-3xl font-black tracking-tight text-white sm:text-5xl md:text-6xl overflow-hidden flex flex-wrap justify-center">
+                            {titleText.split(" ").map((word, i) => (
+                                <motion.span
+                                    key={i}
+                                    initial={{ y: "100%" }}
+                                    animate={{ y: 0 }}
+                                    transition={{ duration: 0.5, delay: i * 0.1, ease: [0.33, 1, 0.68, 1] }}
+                                    className="inline-block mr-[0.25em] last:mr-0"
+                                >
+                                    {word}
+                                </motion.span>
+                            ))}
                         </h1>
-                        <p className="font-['Pacifico',cursive] text-2xl sm:text-4xl md:text-5xl text-[#e9ff32] drop-shadow-lg">
+                        <motion.p
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, delay: 0.6 }}
+                            className="font-['Pacifico',cursive] text-2xl sm:text-4xl md:text-5xl text-[#e9ff32] drop-shadow-lg"
+                        >
                             Everyday, Anytime, and Anywhere.
-                        </p>
-                    </motion.div>
+                        </motion.p>
+                    </div>
 
-                    <div className="h-10" /> {/* Reduced gap */}
+                    <div className="h-10" />
 
                     {/* Capsule Search Bar */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="relative w-full max-w-xl"
+                        transition={{ duration: 0.5, delay: 0.8 }}
+                        className="relative w-full max-w-xl group"
                     >
-                        <div className="relative flex items-center bg-white rounded-full p-1.5 shadow-2xl">
-                            <Search className="absolute left-5 h-5 w-5 text-gray-400" />
+                        <div className={`relative flex items-center bg-white rounded-full p-1.5 transition-all duration-300 shadow-2xl ${isFocused ? 'ring-4 ring-purple-400/30 ring-offset-0 scale-[1.02]' : 'group-hover:scale-[1.01]'}`}>
+                            <Search className={`absolute left-5 h-5 w-5 transition-colors duration-300 ${isFocused ? 'text-purple-600' : 'text-gray-400'}`} />
                             <input
                                 type="text"
                                 placeholder="What do you want to learn today?"
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => setIsFocused(false)}
                                 className="w-full rounded-full py-3 pl-12 pr-28 text-base focus:outline-none text-gray-700"
                             />
-                            <button className="absolute right-1.5 h-[calc(100%-12px)] px-8 rounded-full bg-linear-to-r from-purple-700 to-pink-500 text-white font-bold text-base hover:opacity-90 transition-opacity">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="absolute right-1.5 h-[calc(100%-12px)] px-8 rounded-full bg-linear-to-r from-purple-700 to-pink-500 text-white font-bold text-base hover:shadow-lg transition-all"
+                            >
                                 Search
-                            </button>
+                            </motion.button>
                         </div>
                     </motion.div>
                 </div>
@@ -56,12 +99,10 @@ export const HeroSection = () => {
                             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                             className="relative flex items-end justify-center"
                         >
-                            {/* Enhanced Atmospheric Glow */}
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.4)_0%,transparent_80%)] blur-3xl -z-10 scale-[2.5]" />
 
-                            {/* 4.9 Rating Badge */}
                             <motion.div
-                                animate={{ x: [-3, 3, -3] }}
+                                animate={{ x: [-3, 3, -3], rotate: [-1, 1, -1] }}
                                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
                                 className="absolute -top-10 left-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl py-2 px-4 flex items-center gap-3 shadow-lg scale-90"
                             >
@@ -76,7 +117,7 @@ export const HeroSection = () => {
 
                             <img
                                 src={heroBoy}
-                                alt="Student with graduation cap"
+                                alt="Student boy"
                                 className="h-[320px] object-contain"
                                 style={{
                                     maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
@@ -95,12 +136,10 @@ export const HeroSection = () => {
                             transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
                             className="relative flex items-end justify-center"
                         >
-                            {/* Enhanced Atmospheric Glow */}
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.4)_0%,transparent_80%)] blur-3xl -z-10 scale-[2.5]" />
 
-                            {/* 10k+ Happy Kids Badge */}
                             <motion.div
-                                animate={{ x: [3, -3, 3] }}
+                                animate={{ x: [3, -3, 3], rotate: [1, -1, 1] }}
                                 transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
                                 className="absolute -top-10 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl py-2 px-4 flex items-center gap-3 shadow-lg scale-90"
                             >
@@ -120,7 +159,7 @@ export const HeroSection = () => {
 
                             <img
                                 src={heroGirl}
-                                alt="Student reading book"
+                                alt="Student girl"
                                 className="h-[320px] object-contain"
                                 style={{
                                     maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
