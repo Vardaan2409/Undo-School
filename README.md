@@ -2,6 +2,25 @@
 
 A premium course browsing experience built with React, TailwindCSS, and Framer Motion.
 
+## 🏁 Getting Started
+
+To run this project locally, follow these steps:
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Run the Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
 ## 🚀 Enhancements & Creative Freedom
 
 Beyond the core layout requirements, I have implemented several premium features to demonstrate front-end expertise:

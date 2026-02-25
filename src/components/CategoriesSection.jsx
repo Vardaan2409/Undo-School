@@ -15,8 +15,11 @@ const categories = [
 export const CategoriesSection = () => {
     const [activeTab, setActiveTab] = useState('coding')
     const scrollRef = React.useRef(null)
+    const catScrollRef = React.useRef(null)
     const [showLeftArrow, setShowLeftArrow] = useState(false)
     const [showRightArrow, setShowRightArrow] = useState(true)
+    const [showCatLeftArrow, setShowCatLeftArrow] = useState(false)
+    const [showCatRightArrow, setShowCatRightArrow] = useState(true)
 
     const handleScroll = () => {
         if (scrollRef.current) {
@@ -26,13 +29,31 @@ export const CategoriesSection = () => {
         }
     }
 
+    const handleCatScroll = () => {
+        if (catScrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = catScrollRef.current
+            setShowCatLeftArrow(scrollLeft > 10)
+            setShowCatRightArrow(scrollLeft + clientWidth < scrollWidth - 10)
+        }
+    }
+
     React.useEffect(() => {
         const currentRef = scrollRef.current
+        const currentCatRef = catScrollRef.current
+
         if (currentRef) {
             currentRef.addEventListener('scroll', handleScroll)
             handleScroll()
         }
-        return () => currentRef?.removeEventListener('scroll', handleScroll)
+        if (currentCatRef) {
+            currentCatRef.addEventListener('scroll', handleCatScroll)
+            handleCatScroll()
+        }
+
+        return () => {
+            currentRef?.removeEventListener('scroll', handleScroll)
+            currentCatRef?.removeEventListener('scroll', handleCatScroll)
+        }
     }, [activeTab])
 
     return (
@@ -47,9 +68,10 @@ export const CategoriesSection = () => {
                     </p>
                 </div>
 
-                <div className="max-w-7xl mx-auto mb-20 px-4">
+                <div className="max-w-7xl mx-auto mb-20 px-4 relative group/cat">
                     <div
-                        className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-4 overflow-x-auto no-scrollbar pb-4 md:pb-0"
+                        ref={catScrollRef}
+                        className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-4 overflow-x-auto no-scrollbar pb-4 md:pb-0 scroll-smooth"
                     >
                         {categories.map((cat) => (
                             <motion.button
@@ -66,6 +88,58 @@ export const CategoriesSection = () => {
                             </motion.button>
                         ))}
                     </div>
+
+                    {/* Left Category Arrow */}
+                    <AnimatePresence>
+                        {showCatLeftArrow && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-0 left-0 h-[72px] w-20 bg-gradient-to-r from-white via-white/40 to-transparent flex items-center justify-start pointer-events-none transition-opacity duration-300 z-10 md:hidden"
+                            >
+                                <div
+                                    className="h-full flex items-center pl-2 pointer-events-auto cursor-pointer"
+                                    onClick={() => {
+                                        catScrollRef.current.scrollBy({ left: -200, behavior: 'smooth' })
+                                    }}
+                                >
+                                    <motion.div
+                                        whileHover={{ x: -3 }}
+                                        className="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md border border-gray-100"
+                                    >
+                                        <ArrowLeft className="w-4 h-4 text-gray-800" strokeWidth={3} />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Right Category Arrow */}
+                    <AnimatePresence>
+                        {showCatRightArrow && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-0 right-0 h-[72px] w-20 bg-gradient-to-l from-white via-white/40 to-transparent flex items-center justify-end pointer-events-none transition-opacity duration-300 z-10 md:hidden"
+                            >
+                                <div
+                                    className="h-full flex items-center pr-2 pointer-events-auto cursor-pointer"
+                                    onClick={() => {
+                                        catScrollRef.current.scrollBy({ left: 200, behavior: 'smooth' })
+                                    }}
+                                >
+                                    <motion.div
+                                        whileHover={{ x: 3 }}
+                                        className="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md border border-gray-100"
+                                    >
+                                        <ArrowRight className="w-4 h-4 text-gray-800" strokeWidth={3} />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
 
                 {/* Course Slider for the Active Category */}

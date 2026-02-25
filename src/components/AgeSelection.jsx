@@ -24,7 +24,7 @@ const ageGroups = [
 
 export const AgeSelection = () => {
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white overflow-hidden">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
@@ -35,8 +35,10 @@ export const AgeSelection = () => {
                     </p>
                 </div>
 
-                <div className="w-full overflow-hidden">
-                    <div className="flex flex-nowrap justify-start lg:justify-center gap-3 pt-4 pb-6 overflow-x-auto no-scrollbar scroll-smooth px-4">
+                <div className="relative max-w-5xl mx-auto group">
+                    <div
+                        className="flex flex-nowrap justify-start lg:justify-center gap-3 pt-4 pb-6 overflow-x-auto no-scrollbar scroll-smooth px-4"
+                    >
                         {ageGroups.map((age, index) => (
                             <button
                                 key={index}
