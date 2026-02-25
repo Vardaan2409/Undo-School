@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 const ageGroups = [
     { range: '1-2', color: 'border-[#facc15] text-gray-700' },
@@ -23,6 +25,27 @@ const ageGroups = [
 ]
 
 export const AgeSelection = () => {
+    const scrollRef = useRef(null)
+    const [showLeftArrow, setShowLeftArrow] = useState(false)
+    const [showRightArrow, setShowRightArrow] = useState(true)
+
+    const handleScroll = () => {
+        if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+            setShowLeftArrow(scrollLeft > 10)
+            setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 10)
+        }
+    }
+
+    useEffect(() => {
+        const currentRef = scrollRef.current
+        if (currentRef) {
+            currentRef.addEventListener('scroll', handleScroll)
+            handleScroll() // Initial check
+        }
+        return () => currentRef?.removeEventListener('scroll', handleScroll)
+    }, [])
+
     return (
         <section className="py-20 bg-white overflow-hidden">
             <div className="container mx-auto px-4">
@@ -37,6 +60,7 @@ export const AgeSelection = () => {
 
                 <div className="relative max-w-5xl mx-auto group">
                     <div
+                        ref={scrollRef}
                         className="flex flex-nowrap justify-start lg:justify-center gap-3 pt-4 pb-6 overflow-x-auto no-scrollbar scroll-smooth px-4"
                     >
                         {ageGroups.map((age, index) => (
@@ -49,6 +73,58 @@ export const AgeSelection = () => {
                             </button>
                         ))}
                     </div>
+
+                    {/* Left Navigation Arrow */}
+                    <AnimatePresence>
+                        {showLeftArrow && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-white via-white/40 to-transparent flex items-center justify-start pointer-events-none transition-opacity duration-300 z-10"
+                            >
+                                <div
+                                    className="h-full flex items-center pl-2 pointer-events-auto cursor-pointer"
+                                    onClick={() => {
+                                        scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' })
+                                    }}
+                                >
+                                    <motion.div
+                                        whileHover={{ x: -5 }}
+                                        className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-100"
+                                    >
+                                        <ArrowLeft className="w-5 h-5 text-gray-800" strokeWidth={3} />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Right Navigation Arrow */}
+                    <AnimatePresence>
+                        {showRightArrow && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-white via-white/40 to-transparent flex items-center justify-end pointer-events-none transition-opacity duration-300 z-10"
+                            >
+                                <div
+                                    className="h-full flex items-center pr-2 pointer-events-auto cursor-pointer"
+                                    onClick={() => {
+                                        scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' })
+                                    }}
+                                >
+                                    <motion.div
+                                        whileHover={{ x: 5 }}
+                                        className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg border border-gray-100"
+                                    >
+                                        <ArrowRight className="w-5 h-5 text-gray-800" strokeWidth={3} />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </section>
